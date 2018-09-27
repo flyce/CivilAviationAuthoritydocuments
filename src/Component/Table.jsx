@@ -17,9 +17,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 let counter = 0;
-function createData(name, calories, fat, carbs, protein) {
+function createData(name, category, date, organization, grade, article) {
     counter += 1;
-    return { id: counter, name, calories, fat, carbs, protein };
+    return { id: counter, name, category, date, organization, grade, article };
 }
 
 function desc(a, b, orderBy) {
@@ -48,11 +48,12 @@ function getSorting(order, orderBy) {
 
 const rows = [
     { id: 'name', numeric: false, disablePadding: true, label: '文件名' },
-    { id: 'calories', numeric: true, disablePadding: false, label: '分类' },
-    { id: 'fat', numeric: true, disablePadding: false, label: '发布日期' },
-    { id: 'carbs', numeric: true, disablePadding: false, label: '发布单位' },
-    { id: 'protein', numeric: true, disablePadding: false, label: '等级' },
-    { id: 'operation', numeric: true, disablePadding: false, label: '操作' },
+    { id: 'category', numeric: false, disablePadding: false, label: '分类' },
+    { id: 'date', numeric: false, disablePadding: false, label: '发布日期' },
+    { id: 'organization', numeric: false, disablePadding: false, label: '发布单位' },
+    { id: 'grade', numeric: false, disablePadding: false, label: '等级' },
+    { id: 'article', numeric: false, disablePadding: false, label: '文号' },
+    { id: 'operation', numeric: false, disablePadding: false, label: '操作' },
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -73,9 +74,9 @@ class EnhancedTableHead extends React.Component {
                                 key={row.id}
                                 numeric={row.numeric}
                                 padding={row.id === 'name' ? "checkbox" : row.disablePadding ? 'none' : 'default'}
-                                sortDirection={(row.id === "protein" || row.id === "operation") ? false : orderBy === row.id ? order : false}
+                                sortDirection={ row.id === "operation" ? false : orderBy === row.id ? order : false}
                             >
-                                {(row.id === "protein" || row.id === "operation") ?
+                                {row.id === "operation" ?
                                     row.label
                                     :
                                     <Tooltip
@@ -180,19 +181,19 @@ class EnhancedTable extends React.Component {
         order: 'asc',
         orderBy: 'name',
         data: [
-            createData('Cupcake', 305, 3.7, 67, '0'),
-            createData('Donut', 452, 25.0, 51, '0'),
-            createData('Eclair', 262, 16.0, 24, '1'),
-            createData('Frozen yoghurt', 159, 6.0, 24, '1'),
-            createData('Gingerbread', 356, 16.0, 49, '2'),
-            createData('Honeycomb', 408, 3.2, 87, '2'),
-            createData('Ice cream sandwich', 237, 9.0, 37, '2'),
-            createData('Jelly Bean', 375, 0.0, 94, '1'),
-            createData('KitKat', 518, 26.0, 65, '1'),
-            createData('Lollipop', 392, 0.2, 98, '0'),
-            createData('Marshmallow', 318, 0, 81, '0'),
-            createData('Nougat', 360, 19.0, 9, '1'),
-            createData('Oreo', 437, 18.0, 63, '1'),
+            createData('关于一起维修差错后瞒报信息事件的通报', "通报", "2018.5.11", "民航局飞标司", '平急', "局发明电〔2018〕1252 号"),
+            createData('关于开展对航空无线电专用频率合法使用自查的通知', "通知", '2018.6.25', "民航西南地区管理局", '急', "西南局发明电〔2018〕1034 号"),
+            createData('关于开展机载WiFi政策解读与技术交流培训班的通知', "通知", "2018.2.9", "中国民航管理干部学院", '', '院发明电〔2018〕31-01 号'),
+            createData('关于重申航空无线电频率保护要求的通知', "通知", "2018.6.1", "民航局空管办", '特提', '局发明电〔2018〕1473 号'),
+            // createData('Gingerbread', 356, 16.0, 49, '2'),
+            // createData('Honeycomb', 408, 3.2, 87, '2'),
+            // createData('Ice cream sandwich', 237, 9.0, 37, '2'),
+            // createData('Jelly Bean', 375, 0.0, 94, '1'),
+            // createData('KitKat', 518, 26.0, 65, '1'),
+            // createData('Lollipop', 392, 0.2, 98, '0'),
+            // createData('Marshmallow', 318, 0, 81, '0'),
+            // createData('Nougat', 360, 19.0, 9, '1'),
+            // createData('Oreo', 437, 18.0, 63, '1'),
         ],
         page: 0,
         rowsPerPage: 10,
@@ -251,10 +252,11 @@ class EnhancedTable extends React.Component {
                                             <TableCell component="th" scope="row" padding="checkbox">
                                                 {n.name}
                                             </TableCell>
-                                            <TableCell numeric>{n.calories}</TableCell>
-                                            <TableCell numeric>{n.fat}</TableCell>
-                                            <TableCell numeric>{n.carbs}</TableCell>
-                                            <TableCell numeric>{n.protein}</TableCell>
+                                            <TableCell numeric>{n.category}</TableCell>
+                                            <TableCell numeric>{n.date}</TableCell>
+                                            <TableCell numeric>{n.organization}</TableCell>
+                                            <TableCell numeric>{n.grade}</TableCell>
+                                            <TableCell numeric>{n.article}</TableCell>
                                             <TableCell numeric>
                                                 <Button color="primary" variant="outlined">
                                                     view

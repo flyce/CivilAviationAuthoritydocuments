@@ -20,10 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
 
-import Badge from '@material-ui/core/Badge';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import history from '../Router/history';
 
 const styles = theme => ({
     root: {
@@ -132,7 +129,7 @@ class SearchAppBar extends React.PureComponent {
                         <ListItem
                             button
                             selected={this.state.selectedIndex === 0}
-                            onClick={event => console.log(event, 0)}
+                            onClick={() => {history.push('/')}}
                         >
                             <ListItemIcon>
                                 <HomeIcon />
@@ -145,7 +142,7 @@ class SearchAppBar extends React.PureComponent {
                         <ListItem
                             button
                             selected={this.state.selectedIndex === 1}
-                            onClick={event => console.log(event, 1)}
+                            onClick={() => {history.push('/about')}}
                         >
                             <ListItemIcon>
                                 <InfoIcon />
@@ -181,27 +178,6 @@ class SearchAppBar extends React.PureComponent {
                                     input: classes.inputInput,
                                 }}
                             />
-                        </div>
-                        <div className={classes.sectionDesktop}>
-                            <IconButton color="inherit">
-                                <Badge className={classes.margin} badgeContent={4} color="secondary">
-                                    <MailIcon />
-                                </Badge>
-                            </IconButton>
-                            <IconButton color="inherit">
-                                <Badge className={classes.margin} badgeContent={17} color="secondary">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-                            <IconButton
-                                aria-haspopup="true"
-                                onClick={() => {
-                                    console.log("aaa");
-                                }}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
                         </div>
                     </Toolbar>
                 </AppBar>
