@@ -99,6 +99,7 @@ const styles = theme => ({
 class SearchAppBar extends React.PureComponent {
     state = {
         open: false,
+        search: null
     };
 
     handleDrawerOpen = () => {
@@ -129,7 +130,10 @@ class SearchAppBar extends React.PureComponent {
                         <ListItem
                             button
                             selected={this.state.selectedIndex === 0}
-                            onClick={() => {history.push('/')}}
+                            onClick={() => {
+                                history.push('/');
+                                this.handleDrawerClose();
+                            }}
                         >
                             <ListItemIcon>
                                 <HomeIcon />
@@ -173,6 +177,20 @@ class SearchAppBar extends React.PureComponent {
                             <Input
                                 placeholder="搜索…"
                                 disableUnderline
+                                ref="search"
+                                onKeyDown={
+                                    event => {
+                                        if(event.keyCode === 13) {
+                                            history.push('/search/' + this.state.search);
+                                            event.target.value='';
+                                        }
+                                    }
+                                }
+                                onChange={
+                                    event => {
+                                        this.setState({search: event.target.value});
+                                    }
+                                }
                                 classes={{
                                     root: classes.inputRoot,
                                     input: classes.inputInput,

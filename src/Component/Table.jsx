@@ -16,6 +16,8 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
+import history from '../Router/history';
+
 let counter = 0;
 function createData(name, category, date, organization, grade, article) {
     counter += 1;
@@ -50,10 +52,10 @@ const rows = [
     { id: 'name', numeric: false, disablePadding: true, label: '文件名' },
     { id: 'category', numeric: false, disablePadding: false, label: '分类' },
     { id: 'date', numeric: false, disablePadding: false, label: '发布日期' },
-    { id: 'organization', numeric: false, disablePadding: false, label: '发布单位' },
+    { id: 'organization', numeric: false, disablePadding: true, label: '发布单位' },
     { id: 'grade', numeric: false, disablePadding: false, label: '等级' },
     { id: 'article', numeric: false, disablePadding: false, label: '文号' },
-    { id: 'operation', numeric: false, disablePadding: false, label: '操作' },
+    { id: 'operation', numeric: true, disablePadding: false, label: '操作' },
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -197,10 +199,10 @@ class EnhancedTable extends React.Component {
         ],
         page: 0,
         rowsPerPage: 10,
+        queryString: null
     };
 
     handleRequestSort = (event, property) => {
-        console.log("aaaa");
         const orderBy = property;
         let order = 'desc';
 
@@ -219,18 +221,13 @@ class EnhancedTable extends React.Component {
         this.setState({ rowsPerPage: event.target.value });
     };
 
-    handleClick = (event, id) => {
-        console.log("click", id);
-    };
-
     render() {
         const { classes } = this.props;
         const { data, order, orderBy, rowsPerPage, page } = this.state;
-        console.log(this.state);
 
         return (
             <Paper className={classes.root}>
-                <EnhancedTableToolbar queryString="哈哈哈" />
+                <EnhancedTableToolbar queryString={this.props.queryString} />
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table} aria-labelledby="tableTitle">
                         <EnhancedTableHead
@@ -247,20 +244,26 @@ class EnhancedTable extends React.Component {
                                             hover
                                             tabIndex={-1}
                                             key={n.id}
-                                            onClick={event => this.handleClick(event, n.id)}
                                         >
                                             <TableCell component="th" scope="row" padding="checkbox">
                                                 {n.name}
                                             </TableCell>
-                                            <TableCell numeric>{n.category}</TableCell>
+                                            <TableCell numeric scope="row">{n.category}</TableCell>
                                             <TableCell numeric>{n.date}</TableCell>
                                             <TableCell numeric>{n.organization}</TableCell>
                                             <TableCell numeric>{n.grade}</TableCell>
                                             <TableCell numeric>{n.article}</TableCell>
                                             <TableCell numeric>
-                                                <Button color="primary" variant="outlined">
-                                                    view
-                                                </Button>
+                                                {/*<Button*/}
+                                                    {/*color="primary"*/}
+                                                    {/*variant="outlined"*/}
+                                                    {/*onClick={() => {*/}
+                                                        {/*history.push('/view/' + n.id);*/}
+                                                    {/*}}*/}
+                                                {/*>*/}
+                                                    {/*view*/}
+                                                {/*</Button>*/}
+                                                <a href="http://localhost:5000/aaa.pdf" target="_blank">View</a>
                                             </TableCell>
                                         </TableRow>
                                     );
